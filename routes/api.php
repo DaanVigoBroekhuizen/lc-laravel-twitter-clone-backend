@@ -22,27 +22,35 @@ use Illuminate\Validation\ValidationException;
 | Here is where you can register API routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+|*/
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/tweets', [TweetController::class, 'index'])->name('tweet.index');
-    Route::get('/tweets_all', [TweetAllController::class, 'index'])->name('tweet.index.all');
-    Route::get('/tweets/{tweet}', [TweetController::class, 'show'])->name('tweet.show');
-    Route::post('/tweets', [TweetController::class, 'store'])->name('tweet.store');
-    Route::delete('/tweets/{tweet}', [TweetController::class, 'destroy'])->name('tweet.delete');
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+Route::get('/tweets', function () {
+    return Tweet::with('user:id,name,username,avatar')->latest()->get();
 });
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/follow/{user}', [UserFollowController::class, 'store'])->name('user.follow');
-    Route::post('/unfollow/{user}', [UserFollowController::class, 'destroy'])->name('user.unfollow');
-    Route::get('/is_following/{user}', [UserFollowController::class, 'isFollowing'])->name('user.isFollowing');
-});
-
-Route::get('/users/{user}', [UserProfileController::class, 'show'])->name('user.profile.show');
-Route::get('/users/{user}/tweets', [UserTweetsController::class, 'index'])->name('user.tweets.index');
-
-Route::post('/login', [AuthController::class, 'store'])->name('login');
-Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'destroy'])->name('logout');
-
-Route::post('/register', [RegisterController::class, 'store'])->name('register');
+//
+//Route::middleware('auth:sanctum')->group(function () {
+//    Route::get('/tweets', [TweetController::class, 'index'])->name('tweet.index');
+//    Route::get('/tweets_all', [TweetAllController::class, 'index'])->name('tweet.index.all');
+//    Route::get('/tweets/{tweet}', [TweetController::class, 'show'])->name('tweet.show');
+//    Route::post('/tweets', [TweetController::class, 'store'])->name('tweet.store');
+//    Route::delete('/tweets/{tweet}', [TweetController::class, 'destroy'])->name('tweet.delete');
+//});
+//
+//Route::middleware('auth:sanctum')->group(function () {
+//    Route::post('/follow/{user}', [UserFollowController::class, 'store'])->name('user.follow');
+//    Route::post('/unfollow/{user}', [UserFollowController::class, 'destroy'])->name('user.unfollow');
+//    Route::get('/is_following/{user}', [UserFollowController::class, 'isFollowing'])->name('user.isFollowing');
+//});
+//
+//Route::get('/users/{user}', [UserProfileController::class, 'show'])->name('user.profile.show');
+//Route::get('/users/{user}/tweets', [UserTweetsController::class, 'index'])->name('user.tweets.index');
+//
+//Route::post('/login', [AuthController::class, 'store'])->name('login');
+//Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'destroy'])->name('logout');
+//
+//Route::post('/register', [RegisterController::class, 'store'])->name('register');
