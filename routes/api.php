@@ -60,6 +60,10 @@ Route::get('/users/{user}', function (User $user) {
     );
 });
 
+Route::get('/users/{user}/tweets', function (User $user) {
+    return $user->tweets()->with('user:id,name,username,avatar')->latest()->paginate(10);
+});
+
 //
 //Route::middleware('auth:sanctum')->group(function () {
 //    Route::get('/tweets', [TweetController::class, 'index'])->name('tweet.index');
