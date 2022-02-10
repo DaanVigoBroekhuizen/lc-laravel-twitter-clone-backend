@@ -29,7 +29,7 @@ use Illuminate\Validation\ValidationException;
 //});
 
 Route::get('/tweets', function () {
-    return Tweet::with('user:id,name,username,avatar')->latest()->get();
+    return Tweet::with('user:id,name,username,avatar')->latest()->paginate(10);
 });
 
 //
