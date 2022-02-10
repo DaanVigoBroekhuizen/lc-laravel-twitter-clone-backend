@@ -35,6 +35,17 @@ Route::get('/tweets/{tweet}', function (Tweet $tweet) {
     return $tweet->load('user:id,name,username,avatar');
 });
 
+route::post('/tweets', function (Request $request) {
+    $request->validate([
+        'body' => 'required',
+    ]);
+
+    return Tweet::create([
+        'user_id' => 1,
+        'body' => $request->body,
+    ]);
+});
+
 //
 //Route::middleware('auth:sanctum')->group(function () {
 //    Route::get('/tweets', [TweetController::class, 'index'])->name('tweet.index');
