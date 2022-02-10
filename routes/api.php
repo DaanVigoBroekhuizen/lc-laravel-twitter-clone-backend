@@ -46,6 +46,20 @@ route::post('/tweets', function (Request $request) {
     ]);
 });
 
+Route::get('/users/{user}', function (User $user) {
+    return $user->only(
+        'id',
+        'name',
+        'username',
+        'avatar',
+        'profile',
+        'location',
+        'link',
+        'linkText',
+        'created_at'
+    );
+});
+
 //
 //Route::middleware('auth:sanctum')->group(function () {
 //    Route::get('/tweets', [TweetController::class, 'index'])->name('tweet.index');
